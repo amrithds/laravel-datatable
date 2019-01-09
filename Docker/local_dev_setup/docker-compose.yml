@@ -1,0 +1,48 @@
+version: "3"
+services:
+  web:
+    container_name: laravel_task_web
+    depends_on:
+      - db
+    image: local/laravel:latest
+    working_dir: /var/www
+    volumes:
+      - ./../../:/var/www/laravel-task
+    ports:
+      - 8080:80
+    tty: true
+    links:
+        - db
+    networks:
+      - webnet
+  db:
+    image: local/laravel_task_db:latest
+    container_name: laravel_task_db
+    environment:
+        - MYSQL_USERNAME=laravel
+        - MYSQL_PASSWORD=laravel
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=laravel
+    volumes:
+        - ./database/data:/var/lib/mysql
+    networks:
+      - webnet
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: laravel_task_phpmyadmin
+    depends_on:
+      - db
+    environment:
+        - PMA_ARBITRARY=1
+        - PMA_HOST=db
+    restart: always
+    ports:
+        - 8000:80
+    volumes:
+        - /sessions
+    links:
+        - db
+    networks:
+      - webnet
+networks:
+  webnet:

@@ -1,0 +1,46 @@
+/laravel-task/app/Http/Controllers/Auth/RegisterController.php
+	- Add validation in user create function, 
+	
+/laravel-task/app/Http/Controllers/SurveysController.php
+	line 26
+	- Don't use server side Datatable plugin, instead migrate the template logic to client side. Create
+	  an api to get survey and use jquery datatable plugin in client side
+	- Code looks messy with current approach
+	
+	line 49
+	- Directly create indexed array instead of using compact
+	
+	line 61
+	- Use transaction in db operation
+	
+	line 80
+	- Use Survey object in parameter instead of request object remove line 82
+	- Seperate api and UI based controllers for easy maintenance
+	- Create a response function in base controller to decide the response type based on content-type header (Json, XML)
+	
+	line 109
+	- get validated data using $request->validated(), will help if any transformation is added in future
+
+/laravel-task/app/Http/Controllers/UsersController.php
+	
+	- Add validation class for user request
+	line 22:
+	- delete survey query (not used)
+	- delete dd
+	
+	line 28
+	- don't use server side Datatable plugin, instead migrate the template logic to client side
+	- Why User::query() is used here? Fix it
+	
+/laravel-task/routes/api.php
+	- use controller not lambda function for returning response
+	
+/laravel-task/routes/web.php
+	- add auth middleware to restrict access
+	line 1
+	- don't redirect, mention conroller and action name instead, waste of network traffic
+	line 8
+	- use only in resource to restrict general route matching
+	
+	
+- Add unit test cases for all functions

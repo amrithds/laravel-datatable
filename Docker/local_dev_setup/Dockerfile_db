@@ -1,0 +1,9 @@
+# Use an official Python runtime as a parent image
+FROM mariadb
+
+ENV MYSQL_USERNAME=laravel
+ENV MYSQL_PASSWORD=laravel
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=cross-solar-development
+
+WORKDIR /
